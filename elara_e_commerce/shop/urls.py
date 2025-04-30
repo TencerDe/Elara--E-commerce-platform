@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.urls import path
 from . import views
 
+
 urlpatterns = [
     #URLS FOR CATEGORY
     path('categories/', views.category_list, name='category_list'),
@@ -22,4 +23,9 @@ urlpatterns = [
 
     #URLS FOR SHIPPING ADDRESS
     path('shipping/', views.shipping_address, name='shipping_address'),
+
+    #LOGIN URLS
+    path('login/', views.user_login, name='login'),
+    path('signup/', views.user_signup, name='signup'),
+    path('logout/', views.user_logout, name='logout'),
 ]
