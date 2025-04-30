@@ -16,7 +16,7 @@ def category_detail(request, slug):
 
 def product_list(request):
     products = Product.objects.all()
-    return render(request, 'shop/product_+list.html',{'products':products})
+    return render(request, 'shop/product_list.html',{'products':products})
 
 def product_detail(request, slug):
     product = get_object_or_404(Product, slug=slug)
