@@ -1,1 +1,21 @@
+{% extends 'shop/base.html' %}
 {% load static %}
+{% block title %}All Categories{% endblock %}
+
+{% block content %}
+<h2>Categories</h2>
+
+<div class="category-grid">
+    {% for category in categories %}
+    <div class="category-card">
+        <a href="{% url 'category_detail' category.slug %}">
+            <img src="{{ category.image.url }}" alt="{{ category.name }}">
+            <h3>{{ category.name }}</h3>
+        </a>
+        <p>{{ category.description|truncatewords:15 }}</p>
+    </div>
+    {% empty %}
+        <p>No categories available.</p>
+    {% endfor %}
+</div>
+{% endblock %}

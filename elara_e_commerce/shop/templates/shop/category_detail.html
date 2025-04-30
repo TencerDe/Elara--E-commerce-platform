@@ -1,1 +1,22 @@
+{% extends 'shop/base.html' %}
 {% load static %}
+{% block title %}{{ category.name }}{% endblock %}
+
+{% block content %}
+<h2>{{ category.name }}</h2>
+<p>{{ category.description }}</p>
+
+<div class="product-grid">
+    {% for product in products %}
+    <div class="product-card">
+        <a href="{% url 'product_detail' product.slug %}">
+            <img src="{{ product.image.url }}" alt="{{ product.name }}">
+            <h3>{{ product.name }}</h3>
+        </a>
+        <p>₹{{ product.price }}</p>
+    </div>
+    {% empty %}
+        <p>No products in this category.</p>
+    {% endfor %}
+</div>
+{% endblock %}

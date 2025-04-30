@@ -1,1 +1,22 @@
+{% extends 'shop/base.html' %}
 {% load static %}
+
+{% block title %}My Orders{% endblock %}
+
+{% block content %}
+<h2>My Orders</h2>
+
+{% if orders %}
+    <ul class="order-list">
+        {% for order in orders %}
+        <li>
+            <a href="{% url 'order_detail' order.id %}">
+                Order #{{ order.id }} – placed on {{ order.created_at|date:"M d, Y" }} – ₹{{ order.total_price }}
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>You haven't placed any orders yet.</p>
+{% endif %}
+{% endblock %}

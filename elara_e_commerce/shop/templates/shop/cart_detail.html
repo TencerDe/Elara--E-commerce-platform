@@ -1,1 +1,46 @@
+{% extends 'shop/base.html' %}
 {% load static %}
+{% block title %}Your Cart{% endblock %}
+
+{% block content %}
+<h2>Your Cart</h2>
+
+{% if cart_items %}
+<table class="cart-table">
+    <thead>
+        <tr>
+            <th>Product</th>
+            <th>Qty</th>
+            <th>Price</th>
+            <th>Subtotal</th>
+            <th>Remove</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in cart_items %}
+        <tr>
+            <td>{{ item.product.name }}</td>
+            <td>{{ item.quantity }}</td>
+            <td>₹{{ item.product.price }}</td>
+            <td>₹{{ item.product.price|floatformat:2|add:item.quantity|floatformat:2 }}</td>
+            <td>
+                <form method="post" action="{% url 'remove_from_cart' item.id %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-remove">X</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<div class="cart-total">
+    <strong>Total: ₹{{ total_price }}</strong>
+</div>
+
+<a href="{% url 'checkout' %}" class="btn btn-primary">Proceed to Checkout</a>
+
+{% else %}
+    <p>Your cart is empty.</p>
+{% endif %}
+{% endblock %}
